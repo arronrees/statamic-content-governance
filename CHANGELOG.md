@@ -1,0 +1,16 @@
+# Changelog
+
+## 1.0.0 - 2026-10-17
+
+First release.
+
+- Owners for every governed entry: from the author, a set person, or a fallback owner.
+- Review dates with a due window, and expiry dates with a warning period. Expired content is reported, never unpublished.
+- Review list with filters and bulk actions: mark reviewed, reschedule, reassign owner, set or clear expiry, review all localisations.
+- Detail page per entry with its rule, localisations and full audit history.
+- Dashboard with status counts, a per-collection breakdown, content expiring soon and recent activity, plus a dashboard widget.
+- Governance panel and "Mark reviewed" action on the entry form and entry listings.
+- Email reminders, instant or in a daily digest, configurable per type.
+- Flat-file or database storage, with a command to migrate between them.
+- Multisite aware, with per-site timezones.
+- Requires Statamic 6.34+ Pro, PHP 8.3+, Laravel 12 or 13.

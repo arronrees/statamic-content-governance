@@ -1,0 +1,56 @@
+{
+    "name": "arronrees/content-governance",
+    "description": "Track review and expiry of Statamic entries: owners, attestations and reminders.",
+    "type": "statamic-addon",
+    "license": "proprietary",
+    "keywords": [
+        "statamic",
+        "statamic-addon",
+        "content-governance",
+        "content-review",
+        "content-expiry"
+    ],
+    "authors": [
+        {
+            "name": "Arron Rees"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Arronrees\\ContentGovernance\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Arronrees\\ContentGovernance\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": "^8.3",
+        "statamic/cms": "^6.34"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.12",
+        "laravel/pint": "^1.32",
+        "orchestra/testbench": "^10.8 || ^11.0"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pixelfear/composer-dist-plugin": true
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Content Governance",
+            "description": "Track review and expiry of entries: owners, attestations and reminders."
+        },
+        "laravel": {
+            "providers": [
+                "Arronrees\\ContentGovernance\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
