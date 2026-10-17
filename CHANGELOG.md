@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2 - 2026-10-17
+
+- The Dashboard's status cards now sit three across on larger screens, instead of being stuck at two at every width.
+
 ## 1.0.1 - 2026-10-17
 
 - Collections with expiry turned off no longer offer "Set or clear expiry", show expiry dates, or list content under "Expiring in the next 30 days". A stored date is kept and comes back if expiry is turned on again.

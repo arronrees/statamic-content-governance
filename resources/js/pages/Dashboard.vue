@@ -66,7 +66,8 @@ function cardLink(key) {
             </template>
         </Alert>
 
-        <div class="grid gap-4 grid-cols-2 md:grid-cols-5">
+        <!-- Breakpoint-scoped only: the CP's own grid-cols-2 sits in a later layer and would override an unscoped base. -->
+        <div class="grid gap-4 max-lg:grid-cols-2 lg:grid-cols-3">
             <Link v-for="card in cards" :key="card.key" :href="cardLink(card.key)">
                 <Card class="space-y-1">
                     <Subheading :text="card.label" />
