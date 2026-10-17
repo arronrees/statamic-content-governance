@@ -11,6 +11,7 @@ use Arronrees\ContentGovernance\Records\GovernanceRecord;
 use Arronrees\ContentGovernance\Records\RecordCounts;
 use Arronrees\ContentGovernance\Records\Status;
 use Arronrees\ContentGovernance\Review\ReviewRow;
+use Arronrees\ContentGovernance\Rules\CollectionRules;
 use Arronrees\ContentGovernance\Support\SweepHeartbeat;
 use Statamic\Auth\User as StatamicUser;
 use Statamic\Entries\Entry;
@@ -28,6 +29,7 @@ class Dashboard
         private RecordCounts $counts,
         private SweepHeartbeat $heartbeat,
         private Clock $clock,
+        private CollectionRules $rules,
     ) {}
 
     /**
@@ -62,13 +64,18 @@ class Dashboard
     public function expiringSoon(?string $site, ?array $collections = null, int $days = 30, int $limit = 10): array
     {
         $now = $this->clock->now();
+        $withExpiry = Collection::handles()
+            ->filter(fn (string $handle) => $this->rules->for($handle)->expiryEnabled)
+            ->when($collections !== null, fn ($handles) => $handles->intersect($collections))
+            ->values()
+            ->all();
 
         return $this->records->query()
+            ->whereIn('collection', $withExpiry)
             ->whereNotNull('expires_at')
             ->where('expires_at', '>=', $now)
             ->where('expires_at', '<=', $now->addDays($days))
             ->when($site, fn ($query) => $query->where('site', $site))
-            ->when($collections !== null, fn ($query) => $query->whereIn('collection', $collections))
             ->orderBy('expires_at')
             ->limit($limit)
             ->get()

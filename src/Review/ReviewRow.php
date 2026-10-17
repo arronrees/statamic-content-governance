@@ -6,6 +6,7 @@ use Arronrees\ContentGovernance\Query\Scopes\Filters\GovernanceFlags;
 use Arronrees\ContentGovernance\Records\Flag;
 use Arronrees\ContentGovernance\Records\GovernanceRecord;
 use Arronrees\ContentGovernance\Records\Status;
+use Arronrees\ContentGovernance\Rules\CollectionRules;
 use Arronrees\ContentGovernance\Support\GeneralSettings;
 use Statamic\Auth\User as StatamicUser;
 use Statamic\Entries\Entry;
@@ -23,6 +24,8 @@ class ReviewRow
         $ownerId = $record->ownerId() ?? $fallbackId;
         $owner = $ownerId ? User::find($ownerId) : null;
         $owner = $owner instanceof StatamicUser ? $owner : null;
+        // With expiry off the date is kept (turning expiry back on restores it) but means nothing, so it isn't shown.
+        $expiresAt = app(CollectionRules::class)->for($record->collection())->expiryEnabled ? $record->expiresAt() : null;
 
         return [
             'id' => $record->id(),
@@ -40,7 +43,7 @@ class ReviewRow
             'group_status_label' => $groupStatus?->label(),
             'flags' => array_map(fn (Flag $flag) => GovernanceFlags::label($flag), $record->flags()),
             'next_review_at' => $record->nextReviewAt()?->toIso8601ZuluString(),
-            'expires_at' => $record->expiresAt()?->toIso8601ZuluString(),
+            'expires_at' => $expiresAt?->toIso8601ZuluString(),
             'next_action_at' => $record->nextActionAt()?->toIso8601ZuluString(),
             'is_localisation' => $isLocalisation,
             'group_size' => $groupSize,

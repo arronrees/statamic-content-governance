@@ -103,16 +103,16 @@ function actionCompleted(successful, response) {
                     <dl class="grid grid-cols-2 gap-2 text-sm">
                         <dt>{{ __('Review every') }}</dt>
                         <dd class="flex items-center gap-2">
-                            {{ __(':count days', { count: rule.review_interval_days }) }}
+                            {{ __n(':count day|:count days', rule.review_interval_days, { count: rule.review_interval_days }) }}
                             <Badge v-if="rule.review_interval_overridden" size="sm" color="amber" :text="__('Overridden')" />
                         </dd>
                         <dt>{{ __('Due window') }}</dt>
-                        <dd>{{ __(':count days', { count: rule.due_window_days }) }}</dd>
+                        <dd>{{ __n(':count day|:count days', rule.due_window_days, { count: rule.due_window_days }) }}</dd>
                         <dt>{{ __('Expiry') }}</dt>
                         <dd>{{ rule.expiry_enabled ? __('On') : __('Off') }}</dd>
                         <template v-if="rule.expiry_enabled">
                             <dt>{{ __('Warning') }}</dt>
-                            <dd>{{ __(':count days before', { count: rule.expiry_warning_days }) }}</dd>
+                            <dd>{{ __n(':count day before|:count days before', rule.expiry_warning_days, { count: rule.expiry_warning_days }) }}</dd>
                         </template>
                     </dl>
                 </Card>

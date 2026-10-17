@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 - 2026-10-17
+
+- Collections with expiry turned off no longer offer "Set or clear expiry", show expiry dates, or list content under "Expiring in the next 30 days". A stored date is kept and comes back if expiry is turned on again.
+- Day counts on the Detail page are pluralised properly ("1 day", not "1 days").
+
 ## 1.0.0 - 2026-10-17
 
 First release.
